@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f6fa" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#090b10" media="(prefers-color-scheme:dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cerca Casa">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>Cerca Casa</title>
+<style>
+:root{--bg:#f3f5f9;--card:rgba(255,255,255,.76);--solid:#fff;--text:#111827;--muted:#6b7280;--line:rgba(17,24,39,.11);--blue:#1677ff;--green:#19a463;--orange:#ed8a19;--red:#e34a44;--shadow:0 18px 48px rgba(25,35,55,.10)}
+@media(prefers-color-scheme:dark){:root{--bg:#090b10;--card:rgba(24,28,36,.78);--solid:#171b22;--text:#f7f8fb;--muted:#9ba5b7;--line:rgba(255,255,255,.12);--blue:#4094ff;--shadow:0 22px 52px rgba(0,0,0,.3)}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 90% -5%,rgba(64,148,255,.13),transparent 30%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}body{min-height:100dvh}
+button,input,select,textarea{font:inherit;color:inherit}.app{width:min(100%,760px);margin:auto;padding:max(16px,env(safe-area-inset-top)) 14px max(90px,env(safe-area-inset-bottom))}
+header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 3px 14px}.eyebrow{font-size:12px;color:var(--muted);font-weight:700}h1{font-size:38px;line-height:.95;letter-spacing:-.05em;margin:5px 0 6px}.sub{font-size:12px;color:var(--muted)}.iconBtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center}
+.card{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:24px;padding:16px;margin-bottom:11px}.sectionTitle{font-size:17px;font-weight:850;letter-spacing:-.02em}.sectionSub{font-size:11px;color:var(--muted);margin-top:3px}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.metric{border:1px solid var(--line);border-radius:17px;padding:11px;background:rgba(127,127,127,.04)}.metric b{display:block;font-size:24px;letter-spacing:-.04em}.metric span{font-size:10px;color:var(--muted)}
+label{display:block;font-size:10px;color:var(--muted);font-weight:800;margin:14px 0 6px}.rangeRow{display:flex;align-items:center;gap:12px}.rangeRow input{width:100%}.rangeVal{min-width:68px;text-align:right;font-weight:850}
+.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1.5px solid var(--line);background:transparent;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:760}.chip.on{border-color:var(--blue);background:rgba(22,119,255,.11);color:var(--blue)}
+select,input[type=text],input[type=url],input[type=number],textarea{width:100%;border:1px solid var(--line);background:rgba(127,127,127,.05);border-radius:14px;padding:11px 12px;outline:none}textarea{min-height:70px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.searchBtn{width:100%;border:0;background:var(--blue);color:#fff;border-radius:17px;min-height:52px;font-weight:850;margin-top:14px}.sourceGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.source{display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--line);background:rgba(127,127,127,.05);border-radius:15px;min-height:46px;font-size:12px;font-weight:800;color:var(--text)}.source.all{grid-column:1/-1;background:rgba(22,119,255,.10);border-color:rgba(22,119,255,.25);color:var(--blue)}
+.areas{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.area{border:1px solid var(--line);border-radius:17px;padding:11px}.area b{font-size:12px}.area div{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.35}.tag{display:inline-block;font-size:9px;margin-top:7px;padding:4px 7px;border-radius:999px;background:rgba(25,164,99,.1);color:var(--green);font-weight:800}
+.savedHead{display:flex;justify-content:space-between;align-items:center;gap:8px}.smallBtn{border:1px solid var(--line);background:transparent;border-radius:12px;padding:8px 10px;font-size:11px;font-weight:800}.savedList{display:grid;gap:8px;margin-top:11px}.empty{padding:18px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted);font-size:11px}.listing{border:1px solid var(--line);border-radius:17px;padding:12px}.listingTop{display:flex;justify-content:space-between;gap:8px}.listingTitle{font-size:13px;font-weight:850}.price{font-weight:900}.listingMeta{font-size:10px;color:var(--muted);margin-top:4px}.listingActions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.listingActions button,.listingActions a{border:1px solid var(--line);background:transparent;color:var(--text);text-decoration:none;border-radius:10px;padding:7px 9px;font-size:10px;font-weight:760}.status{border-radius:999px;padding:5px 7px;font-size:9px;font-weight:850}.s-new{background:rgba(22,119,255,.1);color:var(--blue)}.s-contact{background:rgba(237,138,25,.12);color:var(--orange)}.s-visit{background:rgba(25,164,99,.12);color:var(--green)}.s-no{background:rgba(227,74,68,.12);color:var(--red)}
+dialog{border:0;padding:0;background:transparent;width:min(94vw,520px);color:var(--text)}dialog::backdrop{background:rgba(0,0,0,.4);backdrop-filter:blur(7px)}.sheet{background:var(--solid);border:1px solid var(--line);border-radius:25px;padding:17px}.sheetTop{display:flex;align-items:center;justify-content:space-between}.saveBtn{width:100%;border:0;background:var(--text);color:var(--solid);border-radius:14px;min-height:48px;margin-top:14px;font-weight:850}
+.note{font-size:10px;color:var(--muted);line-height:1.45;margin:10px 4px 0}.bottom{position:fixed;bottom:0;left:0;right:0;padding:8px max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:linear-gradient(transparent,var(--bg) 32%);pointer-events:none}.bottomInner{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;pointer-events:auto}.bottom button{min-height:49px;border-radius:16px;border:1px solid var(--line);font-weight:850}.primary{background:var(--blue);color:#fff}.secondary{background:var(--solid);color:var(--text)}
+@media(max-width:390px){h1{font-size:33px}.areas{grid-template-columns:1fr}.card{padding:14px;border-radius:21px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header><div><div class="eyebrow">FIRENZE · VALDARNO</div><h1>Cerca Casa</h1><div class="sub">Solo quello che rientra davvero nei tuoi criteri.</div></div><button id="reset" class="iconBtn" aria-label="Ripristina">↻</button></header>
+
+<section class="card">
+<div class="sectionTitle">I tuoi filtri</div><div class="sectionSub">Modificali quando vuoi: restano salvati sul dispositivo.</div>
+<div class="quick"><div class="metric"><b id="budgetTop">€700</b><span>CANONE MASSIMO</span></div><div class="metric"><b id="sqmTop">50+</b><span>METRI QUADRI</span></div></div>
+<label>CANONE MASSIMO</label><div class="rangeRow"><input id="budget" type="range" min="450" max="1000" step="25" value="700"><div id="budgetVal" class="rangeVal">€700</div></div>
+<label>SUPERFICIE MINIMA</label><div class="rangeRow"><input id="sqm" type="range" min="30" max="100" step="5" value="50"><div id="sqmVal" class="rangeVal">50 m²</div></div>
+<label>TIPOLOGIA</label><div class="chips" id="types"><button class="chip on" data-v="monolocale">Mono</button><button class="chip on" data-v="bilocale">Bilocale</button><button class="chip" data-v="trilocale">Trilocale</button></div>
+<label>ZONE</label><div class="chips" id="areasChips"></div>
+<label>EXTRA</label><div class="chips" id="extras"><button class="chip" data-v="garage">Garage / posto moto</button><button class="chip" data-v="arredato">Arredato</button><button class="chip" data-v="no_agenzia">No agenzia</button></div>
+<button id="buildSearch" class="searchBtn">Cerca adesso</button>
+<div id="sources" class="sourceGrid"></div>
+<div class="note">La ricerca apre risultati web aggiornati sui principali portali. La PWA non usa un server esterno e non richiede account o API.</div>
+</section>
+
+<section class="card">
+<div class="sectionTitle">Zone da tenere d'occhio</div><div class="sectionSub">Scelte per avvicinarti a Firenze senza perdere il collegamento con il Valdarno.</div>
+<div class="areas" id="areaCards"></div>
+</section>
+
+<section class="card">
+<div class="savedHead"><div><div class="sectionTitle">Annunci salvati</div><div class="sectionSub">Tieni qui solo quelli che meritano.</div></div><button id="addListing" class="smallBtn">+ Aggiungi</button></div>
+<div id="savedList" class="savedList"></div>
+</section>
+</main>
+
+<div class="bottom"><div class="bottomInner"><button id="bottomSearch" class="primary">⌕ Cerca</button><button id="bottomAdd" class="secondary">♡ Salva annuncio</button></div></div>
+
+<dialog id="listingDialog"><form method="dialog" class="sheet" id="listingForm"><div class="sheetTop"><div class="sectionTitle">Salva annuncio</div><button value="cancel" class="smallBtn">Chiudi</button></div>
+<label>LINK ANNUNCIO</label><input id="lUrl" type="url" required placeholder="https://...">
+<div class="grid2"><div><label>PREZZO €</label><input id="lPrice" type="number" min="0" placeholder="650"></div><div><label>ZONA</label><select id="lArea"></select></div></div>
+<label>TITOLO / RIFERIMENTO</label><input id="lTitle" type="text" placeholder="Bilocale 55 m²">
+<label>NOTE</label><textarea id="lNotes" placeholder="Garage, arredato, vicino al casello..."></textarea>
+<button class="saveBtn" value="default">Salva</button></form></dialog>
+
+<script>
+(function(){
+"use strict";
+var AREA_DATA=[
+ {name:"Rifredi / Dalmazia",q:"Rifredi Dalmazia Firenze",info:"Comoda per Via Panciatichi e lavoro.",tag:"Lavoro"},
+ {name:"Novoli",q:"Novoli Firenze",info:"Zona nord, pratica per lavoro e servizi.",tag:"Firenze nord"},
+ {name:"Isolotto / Talenti",q:"Isolotto Talenti Firenze",info:"Buona per Firenze ovest e vita quotidiana.",tag:"Firenze ovest"},
+ {name:"Gavinana / Firenze Sud",q:"Gavinana Firenze Sud",info:"Più vicina all'uscita Firenze Sud.",tag:"A1"},
+ {name:"Grassina",q:"Grassina Bagno a Ripoli",info:"Fuori città, spesso più conveniente.",tag:"Prezzo"},
+ {name:"Pontassieve",q:"Pontassieve Firenze",info:"Compromesso tra Firenze e Valdarno.",tag:"Equilibrio"},
+ {name:"Incisa Valdarno",q:"Incisa Valdarno vicino casello",info:"Casello A1 vicino e costi più bassi.",tag:"Casello"},
+ {name:"Figline Valdarno",q:"Figline Valdarno periferia",info:"Più lontana dal lavoro ma spesso più economica.",tag:"Prezzo"}
+];
+var defaults={budget:700,sqm:50,types:["monolocale","bilocale"],areas:["Rifredi / Dalmazia","Novoli","Isolotto / Talenti","Gavinana / Firenze Sud","Grassina","Pontassieve","Incisa Valdarno"],extras:[]};
+var state=load("casa.filters",defaults);
+var listings=load("casa.listings",[]);
+function $(s){return document.querySelector(s)}
+function $$(s){return Array.from(document.querySelectorAll(s))}
+function load(k,d){try{var v=JSON.parse(localStorage.getItem(k));return v||d}catch(e){return d}}
+function save(){localStorage.setItem("casa.filters",JSON.stringify(state));localStorage.setItem("casa.listings",JSON.stringify(listings))}
+function esc(s){return String(s||"").replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]})}
+function renderAreas(){
+ $("#areasChips").innerHTML=AREA_DATA.map(function(a){return '<button class="chip '+(state.areas.indexOf(a.name)>=0?'on':'')+'" data-v="'+esc(a.name)+'">'+esc(a.name.replace(" / ","/"))+'</button>'}).join("");
+ $("#areaCards").innerHTML=AREA_DATA.map(function(a){return '<div class="area"><b>'+esc(a.name)+'</b><div>'+esc(a.info)+'</div><span class="tag">'+esc(a.tag)+'</span></div>'}).join("");
+ $("#lArea").innerHTML=AREA_DATA.map(function(a){return '<option>'+esc(a.name)+'</option>'}).join("");
+}
+function sync(){
+ $("#budget").value=state.budget;$("#sqm").value=state.sqm;$("#budgetVal").textContent="€"+state.budget;$("#budgetTop").textContent="€"+state.budget;$("#sqmVal").textContent=state.sqm+" m²";$("#sqmTop").textContent=state.sqm+"+";
+ $$("#types .chip").forEach(function(b){b.classList.toggle("on",state.types.indexOf(b.dataset.v)>=0)});
+ $$("#extras .chip").forEach(function(b){b.classList.toggle("on",state.extras.indexOf(b.dataset.v)>=0)});
+ renderAreas();buildSources();renderListings();save();
+}
+function toggle(arr,v){var i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else arr.push(v)}
+function query(){
+ var areas=state.areas.length?state.areas.map(function(n){var a=AREA_DATA.find(function(x){return x.name===n});return a?a.q:n}).join(" OR "):"Firenze";
+ var types=state.types.join(" OR ");
+ var extras=state.extras.map(function(x){return x==="garage"?"garage posto auto posto moto":x==="arredato"?"arredato":"privato no agenzia"}).join(" ");
+ return "affitto "+types+" "+areas+" massimo "+state.budget+" euro almeno "+state.sqm+" mq "+extras;
+}
+function google(site){var q=(site?"site:"+site+" ":"")+query();return "https://www.google.com/search?q="+encodeURIComponent(q)}
+function buildSources(){
+ var src=[
+  ["Tutti i risultati",google("") ,"all"],
+  ["Immobiliare.it",google("immobiliare.it"),""],
+  ["Idealista",google("idealista.it"),""],
+  ["Casa.it",google("casa.it"),""],
+  ["Subito",google("subito.it"),""]
+ ];
+ $("#sources").innerHTML=src.map(function(x){return '<a class="source '+x[2]+'" target="_blank" rel="noopener" href="'+x[1]+'">'+x[0]+' ↗</a>'}).join("");
+}
+function statusLabel(s){return s==="contact"?"CONTATTATO":s==="visit"?"VISITA":s==="no"?"SCARTATO":"DA VEDERE"}
+function statusClass(s){return s==="contact"?"s-contact":s==="visit"?"s-visit":s==="no"?"s-no":"s-new"}
+function renderListings(){
+ if(!listings.length){$("#savedList").innerHTML='<div class="empty">Nessun annuncio salvato. Quando ne trovi uno interessante, incolla qui il link.</div>';return}
+ $("#savedList").innerHTML=listings.map(function(l,i){
+   return '<div class="listing"><div class="listingTop"><div><div class="listingTitle">'+esc(l.title||l.area||"Annuncio")+'</div><div class="listingMeta">'+esc(l.area||"")+(l.notes?" · "+esc(l.notes):"")+'</div></div><div><div class="price">'+(l.price?"€"+esc(l.price):"")+'</div><div class="status '+statusClass(l.status)+'">'+statusLabel(l.status)+'</div></div></div><div class="listingActions"><a href="'+esc(l.url)+'" target="_blank" rel="noopener">Apri ↗</a><button data-act="next" data-i="'+i+'">Cambia stato</button><button data-act="del" data-i="'+i+'">Elimina</button></div></div>'
+ }).join("");
+}
+function openDialog(){if($("#listingDialog").showModal)$("#listingDialog").showModal();else $("#listingDialog").setAttribute("open","")}
+$("#budget").addEventListener("input",function(){state.budget=Number(this.value);sync()});
+$("#sqm").addEventListener("input",function(){state.sqm=Number(this.value);sync()});
+$("#types").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.types,e.target.dataset.v);sync()}});
+$("#extras").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.extras,e.target.dataset.v);sync()}});
+$("#areasChips").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.areas,e.target.dataset.v);sync()}});
+$("#buildSearch").addEventListener("click",function(){buildSources();$("#sources").scrollIntoView({behavior:"smooth",block:"center"})});
+$("#bottomSearch").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){$("#buildSearch").click()},350)});
+$("#addListing").addEventListener("click",openDialog);$("#bottomAdd").addEventListener("click",openDialog);
+$("#listingForm").addEventListener("submit",function(e){
+ var submitter=e.submitter;if(submitter&&submitter.value==="cancel")return;
+ e.preventDefault();
+ var u=$("#lUrl").value.trim();if(!u)return;
+ listings.unshift({url:u,price:$("#lPrice").value.trim(),area:$("#lArea").value,title:$("#lTitle").value.trim(),notes:$("#lNotes").value.trim(),status:"new",ts:Date.now()});
+ save();renderListings();this.reset();$("#listingDialog").close();
+});
+$("#savedList").addEventListener("click",function(e){
+ var b=e.target.closest("button");if(!b)return;var i=Number(b.dataset.i);if(!listings[i])return;
+ if(b.dataset.act==="del"){listings.splice(i,1)}
+ else{var seq=["new","contact","visit","no"];var p=seq.indexOf(listings[i].status);listings[i].status=seq[(p+1)%seq.length]}
+ save();renderListings();
+});
+$("#reset").addEventListener("click",function(){state=JSON.parse(JSON.stringify(defaults));sync()});
+renderAreas();sync();
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})});
+})();
+</script>
+</body></html>
