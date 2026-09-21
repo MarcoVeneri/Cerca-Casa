@@ -43,9 +43,9 @@ dialog{border:0;padding:0;background:transparent;width:min(94vw,520px);color:var
 <label>TIPOLOGIA</label><div class="chips" id="types"><button class="chip on" data-v="monolocale">Mono</button><button class="chip on" data-v="bilocale">Bilocale</button><button class="chip" data-v="trilocale">Trilocale</button></div>
 <label>ZONE</label><div class="chips" id="areasChips"></div>
 <label>EXTRA</label><div class="chips" id="extras"><button class="chip" data-v="garage">Garage / posto moto</button><button class="chip" data-v="arredato">Arredato</button><button class="chip" data-v="no_agenzia">No agenzia</button></div>
-<button id="buildSearch" class="searchBtn">Cerca adesso</button>
+<button id="buildSearch" class="searchBtn">⌕ Cerca su tutti i portali</button>
 <div id="sources" class="sourceGrid"></div>
-<div class="note">La ricerca apre risultati web aggiornati sui principali portali. La PWA non usa un server esterno e non richiede account o API.</div>
+<div class="note">La ricerca apre subito risultati web aggiornati sui principali portali usando i filtri selezionati. La PWA non usa un server esterno e non richiede account o API. · v1.1</div>
 </section>
 
 <section class="card">
@@ -118,6 +118,15 @@ function buildSources(){
  ];
  $("#sources").innerHTML=src.map(function(x){return '<a class="source '+x[2]+'" target="_blank" rel="noopener" href="'+x[1]+'">'+x[0]+' ↗</a>'}).join("");
 }
+function launchSearch(){
+ buildSources();
+ save();
+ var url=google("");
+ var w=null;
+ try{w=window.open(url,"_blank","noopener,noreferrer")}catch(e){}
+ if(!w){window.location.href=url}
+}
+
 function statusLabel(s){return s==="contact"?"CONTATTATO":s==="visit"?"VISITA":s==="no"?"SCARTATO":"DA VEDERE"}
 function statusClass(s){return s==="contact"?"s-contact":s==="visit"?"s-visit":s==="no"?"s-no":"s-new"}
 function renderListings(){
@@ -132,8 +141,8 @@ $("#sqm").addEventListener("input",function(){state.sqm=Number(this.value);sync(
 $("#types").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.types,e.target.dataset.v);sync()}});
 $("#extras").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.extras,e.target.dataset.v);sync()}});
 $("#areasChips").addEventListener("click",function(e){if(e.target.matches(".chip")){toggle(state.areas,e.target.dataset.v);sync()}});
-$("#buildSearch").addEventListener("click",function(){buildSources();$("#sources").scrollIntoView({behavior:"smooth",block:"center"})});
-$("#bottomSearch").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});setTimeout(function(){$("#buildSearch").click()},350)});
+$("#buildSearch").addEventListener("click",launchSearch);
+$("#bottomSearch").addEventListener("click",launchSearch);
 $("#addListing").addEventListener("click",openDialog);$("#bottomAdd").addEventListener("click",openDialog);
 $("#listingForm").addEventListener("submit",function(e){
  var submitter=e.submitter;if(submitter&&submitter.value==="cancel")return;
